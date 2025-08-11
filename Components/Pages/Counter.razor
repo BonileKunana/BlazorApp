@@ -6,18 +6,35 @@
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
-<p role="status">Current2 count: @currentCount2</p>
-<p role="status">Current3 count: @constant</p>
 
 
 <button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
-<button class="btn btn-primary" @onclick="DerementCount">Decrement</button>
-<button class="btn btn-primary" @onclick="MultiplyBy2">Multiply</button>
+
+
+
+@*
+<div class="m-4">
+    <input type="text" @onfocus="HandleFocus" @onblur="HandleBlur" />
+    <p>@text</p>
+</div>
+*@
+
+<div style="border: 1px solid black;" @onmouseover="MouseOver">
+    <p>@divText</p>
+
+</div>
+
+<div class="m-4">
+    <input type="text" @bind="text" />
+    <p>@text</p>
+</div>
+
 @code {
     private int currentCount = 0;
-    private int currentCount2 = 0;
-    private int constant = 1;
 
+    string text = "";
+    string divText = "";
+  
     [Parameter]
     public int IncrementAmount { get; set; } = 1;
 
@@ -25,15 +42,27 @@
     {
         currentCount += IncrementAmount;
     }
-
-    private void DerementCount()
+    private void HandleInput(ChangeEventArgs e)
     {
-        currentCount2 -= IncrementAmount;
+        text = (string)e.Value!;
+    }
+    private void MouseOver(MouseEventArgs e)
+    {
+        divText = $"Mouse over at X: {e.ClientX}, Y: {e.ClientY}";
     }
 
-    private void MultiplyBy2()
+    private void HandleKeyDown(KeyboardEventArgs e)
     {
-        constant *= 2;
-
+        text = $"Key pressed: {e.Key}";
     }
+
+    private void HandleFocus(FocusEventArgs e)
+    {
+        text = "you are typing ...";
+    }
+
+    private void HandleBlur(FocusEventArgs e)
+    { 
+        text = "you are not typing ...";
+    }   
 }

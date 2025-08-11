@@ -1,11 +1,13 @@
 using BlazorApp.Components;
 
+//creates a new ASP.NET Core web application with Razor Components
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Register any additional services required by your application
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

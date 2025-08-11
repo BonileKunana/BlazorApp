@@ -25,15 +25,18 @@
 </div>
 
 <div class="m-4">
-    <input type="text" @bind="text" />
+    <input type="text" @bind="text" @bind:event="oninput" @bind:after="Search"/>
+
     <p>@text</p>
 </div>
+<p>@result</p>
 
 @code {
     private int currentCount = 0;
 
     string text = "";
     string divText = "";
+    string result = "";
   
     [Parameter]
     public int IncrementAmount { get; set; } = 1;
@@ -65,4 +68,11 @@
     { 
         text = "you are not typing ...";
     }   
+
+   async Task Search()
+    {
+        // Simulate a search operation
+        await Task.Delay(500); // Simulate a delay for the search operation
+        result = $"Searching for: {text}";
+    }
 }
